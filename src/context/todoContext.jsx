@@ -19,18 +19,30 @@ export const TodoProvider = ({ children }) => {
       createdAt: Date.now(),
       done: false,
     };
+    console.log("Additem", addItem);
+
     setTodo((prev) => [...prev, newItem]);
   };
 
-  //delet
-  const deleteItem = (id) => {};
+  //delete
+  //sets todo to a new version without selceted element
+  const deleteItem = (id) => {
+    setTodo((prev) => prev.filter((item) => item.id !== id));
+  };
   //edit
   //complete
+  const toggleComplete = (id) => {
+    setTodo((prev) =>
+      prev.map((item) =>
+        item.id == id ? { ...item, done: !item.done } : item,
+      ),
+    );
+  };
 
   //FILTER
 
   //--------------------
-  const providerOBJ = { todo, addItem };
+  const providerOBJ = { todo, addItem, deleteItem, toggleComplete };
   return (
     <TodoContext.Provider value={providerOBJ}>{children}</TodoContext.Provider>
   );

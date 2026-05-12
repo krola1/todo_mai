@@ -9,7 +9,7 @@ export default function TodoList() {
 
   return (
     <>
-      {todo.map((item) => (
+      {todo?.map((item) => (
         <TodoCard key={item.id} {...item} />
       ))}
     </>
