@@ -30,6 +30,12 @@ export const TodoProvider = ({ children }) => {
     setTodo((prev) => prev.filter((item) => item.id !== id));
   };
   //edit
+  const editItem = (id, newText) => {
+    setTodo((prev) =>
+      prev.map((item) => (item.id == id ? { ...item, title: newText } : item)),
+    );
+  };
+
   //complete
   const toggleComplete = (id) => {
     setTodo((prev) =>
@@ -42,7 +48,7 @@ export const TodoProvider = ({ children }) => {
   //FILTER
 
   //--------------------
-  const providerOBJ = { todo, addItem, deleteItem, toggleComplete };
+  const providerOBJ = { todo, addItem, deleteItem, toggleComplete, editItem };
   return (
     <TodoContext.Provider value={providerOBJ}>{children}</TodoContext.Provider>
   );
