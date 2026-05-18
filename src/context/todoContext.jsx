@@ -1,15 +1,15 @@
 /* eslint-disable react-refresh/only-export-components */
 // completed not completed, box
 
-import { useState } from "react";
 import { createContext } from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 //INITIALIZE CONTEXT
 export const TodoContext = createContext({});
 
 // PROVIDER
 export const TodoProvider = ({ children }) => {
-  const [todo, setTodo] = useState([]);
+  const [todo, setTodo] = useLocalStorage("maiTodo2");
 
   //add
   const addItem = (text) => {
@@ -19,7 +19,6 @@ export const TodoProvider = ({ children }) => {
       createdAt: Date.now(),
       done: false,
     };
-    console.log("Additem", addItem);
 
     setTodo((prev) => [...prev, newItem]);
   };
@@ -48,7 +47,13 @@ export const TodoProvider = ({ children }) => {
   //FILTER
 
   //--------------------
-  const providerOBJ = { todo, addItem, deleteItem, toggleComplete, editItem };
+  const providerOBJ = {
+    todo,
+    addItem,
+    deleteItem,
+    toggleComplete,
+    editItem,
+  };
   return (
     <TodoContext.Provider value={providerOBJ}>{children}</TodoContext.Provider>
   );
